@@ -1,44 +1,17 @@
 import React from "react";
-import { gql, useLazyQuery } from "@apollo/client";
+import { Route, Switch } from "react-router-dom";
 
-const GET_AUTHORS = gql`
-  query getAuthors {
-    authors(pageNo: 1) {
-      name
-    }
-  }
-`;
-
-function App() {
-  const [getAuthors, { loading, error, data }] = useLazyQuery(GET_AUTHORS);
-
+const App = () => {
   return (
-    <div className="app">
-      <h1>Authors</h1>
-      {loading && (
-        <p>
-          Loading{" "}
-          <span role="img" aria-label="loading">
-            &#128260;
-          </span>
-        </p>
-      )}
-      {error && (
-        <p>
-          Error
-          <span role="img" aria-label="error">
-            &#10060;
-          </span>
-        </p>
-      )}
-      {data && (
-        <p>
-          <pre>{JSON.stringify(data, null, 4)}</pre>
-        </p>
-      )}
-      <button onClick={getAuthors}>Get Authors</button>
-    </div>
+    <>
+      <Switch>
+        <Route exact path="/" children={<h1>App</h1>} />
+        <Route exact path="/authors" children={<h1>Authors</h1>} />
+        <Route exact path="/books" children={<h1>Book</h1>} />
+        <Route exact path="*" children={<h1>Not Found</h1>} />
+      </Switch>
+    </>
   );
-}
+};
 
 export default App;
