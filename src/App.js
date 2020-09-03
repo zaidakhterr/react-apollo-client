@@ -1,5 +1,5 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 
 const GET_AUTHORS = gql`
   query getAuthors {
@@ -10,7 +10,7 @@ const GET_AUTHORS = gql`
 `;
 
 function App() {
-  const { loading, error, data } = useQuery(GET_AUTHORS);
+  const [getAuthors, { loading, error, data }] = useLazyQuery(GET_AUTHORS);
 
   return (
     <div className="app">
@@ -36,6 +36,7 @@ function App() {
           <pre>{JSON.stringify(data, null, 4)}</pre>
         </p>
       )}
+      <button onClick={getAuthors}>Get Authors</button>
     </div>
   );
 }
