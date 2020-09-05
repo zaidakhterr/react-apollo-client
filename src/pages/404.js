@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BOX, PRIMARY_BUTTON_CLASS } from "../classes.js";
+import { BOX_CLASS, PRIMARY_BUTTON_CLASS } from "../classes.js";
 
 const Notfound = () => {
   return (
     <>
-      <div className={BOX}>
+      <div className={BOX_CLASS}>
         <Link className={PRIMARY_BUTTON_CLASS} to="/">
           Go Home
         </Link>
