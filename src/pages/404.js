@@ -2,19 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BOX, PRIMARY_BUTTON_CLASS } from "../classes.js";
 
-const Home = () => {
+const Notfound = () => {
   return (
     <>
       <div className={BOX}>
-        <Link className={PRIMARY_BUTTON_CLASS} to="/authors">
-          Authors
-        </Link>
-        <Link className={PRIMARY_BUTTON_CLASS} to="/books">
-          Books
+        <Link className={PRIMARY_BUTTON_CLASS} to="/">
+          Go Home
         </Link>
       </div>
     </>
   );
 };
 
-export default Home;
+export default Notfound;
