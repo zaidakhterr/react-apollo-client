@@ -1,17 +1,9 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_AUTHORS } from "../graphql/queryGetAuthor";
 
 const Authors = () => {
-  const { data, loading, error } = useQuery(
-    gql`
-      query getAuthors {
-        authors {
-          name
-          email
-        }
-      }
-    `
-  );
+  const { data, loading, error } = useQuery(GET_AUTHORS);
 
   return (
     <div className="min-h-screen py-10">
