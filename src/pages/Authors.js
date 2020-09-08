@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, makeVar } from "@apollo/client";
-import { GET_AUTHORS } from "../graphql/queryGetAuthor";
+import { useQuery } from "@apollo/client";
+import { GET_AUTHORS } from "../graphql/queryGetAuthors";
 
 const Authors = () => {
   const [pageNo, setPageNo] = useState(1);
