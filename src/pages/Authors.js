@@ -39,7 +39,10 @@ const Authors = () => {
         <>
           <div>
             {data?.authors?.list.map((author) => (
-              <div className="border-2 rounded py-4 px-8 mb-2 flex flex-col sm:flex-row sm:justify-between">
+              <div
+                key={author.email}
+                className="border-2 rounded py-4 px-8 mb-2 flex flex-col sm:flex-row sm:justify-between"
+              >
                 <h4 className="text-lg">{author.name}</h4>
                 <p className="text-gray-600 text-sm">{author.email}</p>
               </div>
