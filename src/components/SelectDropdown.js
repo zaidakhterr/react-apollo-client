@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const SelectDropdown = ({ options, selected, setSelected, title = "Options" }) => {
+const SelectDropdown = ({ options, selected, setSelected, title = "Options", left = false }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,7 +29,7 @@ const SelectDropdown = ({ options, selected, setSelected, title = "Options" }) =
       </div>
 
       {open && (
-        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg">
+        <div className={`origin-top-right absolute ${left ? "left-0" : "right-0"} mt-2 w-56 rounded-md shadow-lg`}>
           <div className="rounded-md bg-white shadow-xs">
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               {options.map((option) => (
@@ -63,6 +63,7 @@ SelectDropdown.propTypes = {
   selected: PropTypes.string.isRequired,
   setSelected: PropTypes.func.isRequired,
   title: PropTypes.string,
+  left: PropTypes.bool,
 };
 
 export default SelectDropdown;
