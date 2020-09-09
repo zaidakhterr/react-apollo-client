@@ -39,7 +39,7 @@ const Books = () => {
       )}
       {data && (
         <>
-          <div className="flex justify-end">
+          <div className="mb-4 flex justify-end">
             <SelectDropdown
               options={[
                 {
