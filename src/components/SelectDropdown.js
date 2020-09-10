@@ -7,7 +7,7 @@ const SelectDropdown = ({ options, selected, setSelected, title = "Options", lef
   return (
     <div className="relative inline-block text-left">
       <div>
-        <span className="rounded-md shadow-sm">
+        <span className="rounded-md shadow-sm" onBlur={() => setOpen(false)}>
           <button
             onClick={() => setOpen((v) => !v)}
             type="button"
@@ -28,27 +28,31 @@ const SelectDropdown = ({ options, selected, setSelected, title = "Options", lef
         </span>
       </div>
 
-      {open && (
-        <div className={`origin-top-right absolute ${left ? "left-0" : "right-0"} mt-2 w-56 rounded-md shadow-lg`}>
-          <div className="rounded-md bg-white shadow-xs">
-            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              {options.map((option) => (
-                <span
-                  key={option.key}
-                  className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                  role="menuitem"
-                  onClick={() => {
-                    setSelected(option.value);
-                    setOpen(false);
-                  }}
-                >
-                  {option.key}
-                </span>
-              ))}
-            </div>
+      <div
+        className={`${
+          left ? "left-0" : "right-0"
+        } origin-top-right absolute mt-2 w-56 rounded-md shadow-lg transition ease-out duration-100 ${
+          open ? "transform opacity-100 scale-100" : "transform opacity-0 scale-95"
+        }`}
+      >
+        <div className="rounded-md bg-white shadow-xs">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            {options.map((option) => (
+              <span
+                key={option.key}
+                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                role="menuitem"
+                onClick={() => {
+                  setSelected(option.value);
+                  setOpen(false);
+                }}
+              >
+                {option.key}
+              </span>
+            ))}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
