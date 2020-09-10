@@ -6,6 +6,8 @@ import SelectDropdown from "../components/SelectDropdown";
 const Books = () => {
   const [pageNo, setPageNo] = useState(1);
   const [field, setField] = useState("");
+  const [filter, setFilter] = useState("");
+
   const { data, loading, error, fetchMore } = useQuery(GET_BOOKS, {
     variables: {
       pageNo,
@@ -39,17 +41,44 @@ const Books = () => {
       )}
       {data && (
         <>
-          <div className="mb-4 flex justify-end">
+          <div className="mb-4 flex justify-end space-x-3">
             <SelectDropdown
               options={[
                 {
-                  key: "Title",
-                  value: "title",
+                  text: "Title",
+                  key: "title",
                 },
               ]}
               selected={field}
               setSelected={setField}
               title="Fields"
+            />
+            <SelectDropdown
+              options={[
+                {
+                  text: "Contains",
+                  key: "contains",
+                },
+                {
+                  text: "Equals",
+                  key: "equals",
+                },
+                {
+                  text: "Not Equals",
+                  key: "not",
+                },
+                {
+                  text: "Starts With",
+                  key: "startsWith",
+                },
+                {
+                  text: "Ends With",
+                  key: "endsWith",
+                },
+              ]}
+              selected={filter}
+              setSelected={setFilter}
+              title="Filter"
             />
           </div>
           <div>
