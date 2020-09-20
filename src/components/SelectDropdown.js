@@ -5,7 +5,7 @@ const SelectDropdown = ({ options, selected, setSelected, title = "Options", lef
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative inline-block text-left w-40">
+    <div className="relative inline-block text-left w-48">
       <div>
         <span className="rounded-md shadow-sm" onBlur={() => setOpen(false)}>
           <button
