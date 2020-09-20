@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_BOOKS } from "../graphql/queryGetBooks";
 import SelectDropdown from "../components/SelectDropdown";
+import FilterModal from "../components/FilterModal";
 
 const Books = () => {
   const [pageNo, setPageNo] = useState(1);
@@ -41,8 +42,9 @@ const Books = () => {
       )}
       {data && (
         <>
-          <div className="mb-4 flex justify-end space-x-3">
-            <SelectDropdown
+          <div className="mb-4 flex justify-end">
+            <FilterModal />
+            {/* <SelectDropdown
               options={[
                 {
                   text: "Title",
@@ -79,7 +81,7 @@ const Books = () => {
               selected={filter}
               setSelected={setFilter}
               title="Filter"
-            />
+            /> */}
           </div>
           <div>
             {data?.books?.list.map((book) => (
