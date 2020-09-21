@@ -7,7 +7,6 @@ import App from "./App";
 import client from "./apolloClient";
 
 import "./index.css";
-import "./tailwind.output.css";
 
 ReactDOM.render(
   <React.StrictMode>
