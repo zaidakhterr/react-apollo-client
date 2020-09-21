@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import SelectDropdown from "./SelectDropdown";
 
 const FilterModal = () => {
   const [open, setOpen] = useState(false);
+  const [field, setField] = useState("");
+  const [filter, setFilter] = useState("");
 
   return (
     <>
@@ -37,7 +40,44 @@ const FilterModal = () => {
                     Filter
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm leading-5 text-gray-500">Filter form</p>
+                    <SelectDropdown
+                      options={[
+                        {
+                          text: "Title",
+                          key: "title",
+                        },
+                      ]}
+                      selected={field}
+                      setSelected={setField}
+                      title="Fields"
+                    />
+                    <SelectDropdown
+                      options={[
+                        {
+                          text: "Contains",
+                          key: "contains",
+                        },
+                        {
+                          text: "Equals",
+                          key: "equals",
+                        },
+                        {
+                          text: "Not Equals",
+                          key: "not",
+                        },
+                        {
+                          text: "Starts With",
+                          key: "startsWith",
+                        },
+                        {
+                          text: "Ends With",
+                          key: "endsWith",
+                        },
+                      ]}
+                      selected={filter}
+                      setSelected={setFilter}
+                      title="Filter"
+                    />
                   </div>
                 </div>
               </div>

@@ -6,8 +6,6 @@ import FilterModal from "../components/FilterModal";
 
 const Books = () => {
   const [pageNo, setPageNo] = useState(1);
-  const [field, setField] = useState("");
-  const [filter, setFilter] = useState("");
 
   const { data, loading, error, fetchMore } = useQuery(GET_BOOKS, {
     variables: {
@@ -44,44 +42,6 @@ const Books = () => {
         <>
           <div className="mb-4 flex justify-end">
             <FilterModal />
-            {/* <SelectDropdown
-              options={[
-                {
-                  text: "Title",
-                  key: "title",
-                },
-              ]}
-              selected={field}
-              setSelected={setField}
-              title="Fields"
-            />
-            <SelectDropdown
-              options={[
-                {
-                  text: "Contains",
-                  key: "contains",
-                },
-                {
-                  text: "Equals",
-                  key: "equals",
-                },
-                {
-                  text: "Not Equals",
-                  key: "not",
-                },
-                {
-                  text: "Starts With",
-                  key: "startsWith",
-                },
-                {
-                  text: "Ends With",
-                  key: "endsWith",
-                },
-              ]}
-              selected={filter}
-              setSelected={setFilter}
-              title="Filter"
-            /> */}
           </div>
           <div>
             {data?.books?.list.map((book) => (
