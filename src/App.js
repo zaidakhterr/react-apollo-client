@@ -1,7 +1,12 @@
+import { Button } from "antd";
 import React from "react";
 
 const App = () => {
-  return <>TAILWIND SUCKS (ATLEAST FOR ME)</>;
+  return (
+    <>
+      <Button type="primary">Hello Antd</Button>
+    </>
+  );
 };
 
 export default App;
