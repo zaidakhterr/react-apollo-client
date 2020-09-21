@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { PageHeader, Space, Table } from "antd";
+import { PageHeader, Table } from "antd";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { GET_AUTHORS } from "../graphql/queryGetAuthors";
@@ -31,8 +31,6 @@ const Authors = () => {
     name: author.name,
     email: author.email,
   }));
-
-  console.log(data, error, loading);
 
   return (
     <>
