@@ -1,10 +1,13 @@
-import { Button } from "antd";
 import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
     <>
-      <Button type="primary">Hello Antd</Button>
+      <Switch>
+        <Route exact path="/" children={<Home />} />
+      </Switch>
     </>
   );
 };
