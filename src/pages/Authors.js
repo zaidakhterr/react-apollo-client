@@ -1,8 +1,10 @@
-import { useQuery } from "@apollo/client";
-import { PageHeader, Table } from "antd";
-import React from "react";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { Button, Col, PageHeader, Row, Table, Typography } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GET_AUTHORS } from "../graphql/queryGetAuthors";
+import Error from "../components/Error";
 
 const columns = [
   {
@@ -20,11 +22,17 @@ const columns = [
 const Authors = () => {
   const history = useHistory();
 
-  const { data, error, loading } = useQuery(GET_AUTHORS, {
-    variables: {
-      pageNo: 0,
-    },
-  });
+  const [pageNo, setPageNo] = useState(1);
+
+  const [getAuthors, { data, error, loading }] = useLazyQuery(GET_AUTHORS);
+
+  useEffect(() => {
+    getAuthors({
+      variables: {
+        pageNo,
+      },
+    });
+  }, [pageNo, getAuthors]);
 
   const authors = data?.authors?.list.map((author) => ({
     key: author.id,
@@ -40,18 +48,50 @@ const Authors = () => {
         title="Authors"
         subTitle="View / Add all Authors here"
       />
-      <Table
-        rowSelection={{
-          type: "radio",
-          onChange: () => {},
-          getCheckboxProps: (record) => ({
-            name: record.name,
-          }),
-        }}
-        dataSource={authors}
-        columns={columns}
-        pagination={false}
-      />
+      {error ? (
+        <Error />
+      ) : (
+        <>
+          <Table
+            loading={loading}
+            rowSelection={{
+              type: "radio",
+              onChange: () => {},
+              getRaProps: (record) => ({
+                name: record.name,
+              }),
+            }}
+            dataSource={authors}
+            columns={columns}
+            pagination={false}
+          />
+          <Row justify="end" align="middle" gutter={16} style={{ padding: 8 }}>
+            <Col>
+              <Button
+                onClick={() => {
+                  setPageNo((p) => p - 1);
+                }}
+                disabled={pageNo === 1}
+                type="text"
+                icon={<LeftOutlined />}
+              />
+            </Col>
+            <Col>
+              <Typography.Text>{pageNo}</Typography.Text>
+            </Col>
+            <Col>
+              <Button
+                onClick={() => {
+                  setPageNo((p) => p + 1);
+                }}
+                disabled={!data?.authors?.hasMore}
+                type="text"
+                icon={<RightOutlined />}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
     </>
   );
 };
