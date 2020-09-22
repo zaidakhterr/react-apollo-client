@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { GET_AUTHORS } from "../graphql/queryGetAuthors";
 import Error from "../components/Error";
 import Pagination from "../components/Pagination";
@@ -19,9 +19,18 @@ const columns = [
   },
 ];
 
-const Authors = () => {
-  const history = useHistory();
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/authors",
+    name: "Authors",
+  },
+];
 
+const Authors = () => {
   const [pageNo, setPageNo] = useState(1);
 
   const [getAuthors, { data, error, loading }] = useLazyQuery(GET_AUTHORS);
@@ -44,9 +53,14 @@ const Authors = () => {
     <>
       <PageHeader
         className="site-page-header"
-        onBack={() => history.goBack()}
         title="Authors"
         subTitle="View / Add all Authors here"
+        breadcrumb={{
+          routes,
+          itemRender: (route) => {
+            return <Link to={route.path}>{route.name}</Link>;
+          },
+        }}
       />
       {error ? (
         <Error />
