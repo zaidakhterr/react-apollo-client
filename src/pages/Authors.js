@@ -1,10 +1,10 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { Button, Col, PageHeader, Row, Table, Typography } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { useLazyQuery } from "@apollo/client";
+import { PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GET_AUTHORS } from "../graphql/queryGetAuthors";
 import Error from "../components/Error";
+import Pagination from "../components/Pagination";
 
 const columns = [
   {
@@ -65,31 +65,7 @@ const Authors = () => {
             columns={columns}
             pagination={false}
           />
-          <Row justify="end" align="middle" gutter={16} style={{ padding: 8 }}>
-            <Col>
-              <Button
-                onClick={() => {
-                  setPageNo((p) => p - 1);
-                }}
-                disabled={pageNo === 1}
-                type="text"
-                icon={<LeftOutlined />}
-              />
-            </Col>
-            <Col>
-              <Typography.Text>{pageNo}</Typography.Text>
-            </Col>
-            <Col>
-              <Button
-                onClick={() => {
-                  setPageNo((p) => p + 1);
-                }}
-                disabled={!data?.authors?.hasMore}
-                type="text"
-                icon={<RightOutlined />}
-              />
-            </Col>
-          </Row>
+          <Pagination pageNo={pageNo} setPageNo={setPageNo} hasMore={data?.authors?.hasMore} />
         </>
       )}
     </>
