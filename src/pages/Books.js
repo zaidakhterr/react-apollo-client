@@ -1,7 +1,8 @@
+import { RightOutlined } from "@ant-design/icons";
 import { useLazyQuery } from "@apollo/client";
 import { PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Error from "../components/Error";
 import Pagination from "../components/Pagination";
 import { GET_BOOKS } from "../graphql/queryGetBooks";
@@ -62,7 +63,11 @@ const Books = () => {
         breadcrumb={{
           routes,
           itemRender: (route) => {
-            return <Link to={route.path}>{route.name}</Link>;
+            return (
+              <Link key={route.path} to={route.path}>
+                {route.name}
+              </Link>
+            );
           },
         }}
       />

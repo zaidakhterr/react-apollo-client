@@ -1,10 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
-import { PageHeader, Table } from "antd";
+import { Button, PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GET_AUTHORS } from "../graphql/queryGetAuthors";
 import Error from "../components/Error";
 import Pagination from "../components/Pagination";
+import { PlusOutlined } from "@ant-design/icons";
+import AddAuthorModal from "../components/AddAuthorModal";
 
 const columns = [
   {
@@ -32,6 +34,7 @@ const routes = [
 
 const Authors = () => {
   const [pageNo, setPageNo] = useState(1);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const [getAuthors, { data, error, loading }] = useLazyQuery(GET_AUTHORS);
 
@@ -61,6 +64,18 @@ const Authors = () => {
             return <Link to={route.path}>{route.name}</Link>;
           },
         }}
+        extra={[
+          <Button
+            disabled={!!error}
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => {
+              setIsFilterOpen(true);
+            }}
+          >
+            New
+          </Button>,
+        ]}
       />
       {error ? (
         <Error />
@@ -80,6 +95,7 @@ const Authors = () => {
             pagination={false}
           />
           <Pagination pageNo={pageNo} setPageNo={setPageNo} hasMore={data?.authors?.hasMore} />
+          <AddAuthorModal open={isFilterOpen} setOpen={setIsFilterOpen} />
         </>
       )}
     </>
