@@ -87,19 +87,7 @@ const Authors = () => {
         <Error />
       ) : (
         <>
-          <Table
-            loading={loading}
-            rowSelection={{
-              type: "radio",
-              onChange: () => {},
-              getRaProps: (record) => ({
-                name: record.name,
-              }),
-            }}
-            dataSource={authors}
-            columns={columns}
-            pagination={false}
-          />
+          <Table loading={loading} dataSource={authors} columns={columns} pagination={false} />
           <Pagination pageNo={pageNo} setPageNo={setPageNo} hasMore={data?.authors?.hasMore} />
           <AddAuthorModal open={isFilterOpen} setOpen={setIsFilterOpen} />
         </>

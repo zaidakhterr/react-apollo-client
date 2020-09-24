@@ -74,19 +74,7 @@ const Books = () => {
         <Error />
       ) : (
         <>
-          <Table
-            loading={loading}
-            rowSelection={{
-              type: "radio",
-              onChange: () => {},
-              getCheckboxProps: (record) => ({
-                name: record.name,
-              }),
-            }}
-            dataSource={books}
-            columns={columns}
-            pagination={false}
-          />
+          <Table loading={loading} dataSource={books} columns={columns} pagination={false} />
           <Pagination pageNo={pageNo} setPageNo={setPageNo} hasMore={data?.books?.hasMore} />
         </>
       )}
