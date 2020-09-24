@@ -1,21 +1,36 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, message, Modal } from "antd";
 import React from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { ADD_AUTHOR } from "../graphql/mutationAddAuthor";
-import { cloneDeep } from "@apollo/client/utilities";
 
 const AddAuthorModal = ({ open, setOpen }) => {
   const [form] = Form.useForm();
 
-  const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
+  const [addAuthor, { loading }] = useMutation(ADD_AUTHOR, {
     refetchQueries: ["getAuthors"],
+    onError: (err) => {
+      if (err.graphQLErrors.length > 0) {
+        message.warn("Use another Email");
+      } else {
+        message.error("Oops! Something went wrong");
+      }
+    },
+    onCompleted: () => {
+      form.resetFields();
+      setOpen(false);
+    },
   });
 
-  const onFormSubmit = (values) => {
-    console.log("Values : ", { values });
+  const onFormSubmit = async (values) => {
+    const { name, email } = values;
 
-    form.resetFields();
+    await addAuthor({
+      variables: {
+        name,
+        email,
+      },
+    });
   };
 
   return (

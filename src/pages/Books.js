@@ -1,4 +1,3 @@
-import { RightOutlined } from "@ant-design/icons";
 import { useLazyQuery } from "@apollo/client";
 import { PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";

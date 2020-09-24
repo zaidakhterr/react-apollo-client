@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Button, PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -24,11 +24,11 @@ const columns = [
 const routes = [
   {
     path: "/",
-    name: "Home",
+    breadcrumbName: "Home",
   },
   {
     path: "/authors",
-    name: "Authors",
+    breadcrumbName: "Authors",
   },
 ];
 
@@ -36,15 +36,20 @@ const Authors = () => {
   const [pageNo, setPageNo] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const [getAuthors, { data, error, loading }] = useLazyQuery(GET_AUTHORS);
+  const { data, error, loading, fetchMore } = useQuery(GET_AUTHORS, {
+    variables: {
+      pageNo,
+    },
+  });
 
   useEffect(() => {
-    getAuthors({
+    console.log(pageNo);
+    fetchMore({
       variables: {
         pageNo,
       },
     });
-  }, [pageNo, getAuthors]);
+  }, [pageNo, fetchMore]);
 
   const authors = data?.authors?.list.map((author) => ({
     key: author.id,
@@ -61,13 +66,14 @@ const Authors = () => {
         breadcrumb={{
           routes,
           itemRender: (route) => {
-            return <Link to={route.path}>{route.name}</Link>;
+            return <Link to={route.path}>{route.breadcrumbName}</Link>;
           },
         }}
         extra={[
           <Button
             disabled={!!error}
             type="primary"
+            key="new"
             icon={<PlusOutlined />}
             onClick={() => {
               setIsFilterOpen(true);
