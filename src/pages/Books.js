@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { PageHeader, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -33,19 +33,19 @@ const routes = [
 const Books = () => {
   const [pageNo, setPageNo] = useState(1);
 
-  const [getBooks, { data, error, loading }] = useLazyQuery(GET_BOOKS, {
+  const { data, error, loading, fetchMore } = useQuery(GET_BOOKS, {
     variables: {
       pageNo,
     },
   });
 
   useEffect(() => {
-    getBooks({
+    fetchMore({
       variables: {
         pageNo,
       },
     });
-  }, [pageNo, getBooks]);
+  }, [pageNo, fetchMore]);
 
   const books = data?.books?.list.map((book) => ({
     key: book.id,
